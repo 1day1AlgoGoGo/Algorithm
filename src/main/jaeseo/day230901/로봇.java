@@ -7,6 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/*문제 자체가 어렵진 않지만, 조건을 잘 이해못해서 바로 못풀기도했고 생각보다 신경쓸게 많았던 문제.
+로봇이 움직일 수 없을때까지 계속 반복하며 이동해야하고, 로봇이 움직일 수 있는지 없는지 체크하는 두가지 부분이 키포인트라고 생각.
+그리고, 로봇이 움직이기 때문에 인덱스 관리를 잘 해줘야했음 */
 public class 로봇 {
     static int[] dr = new int[]{-1,1,0,0};
     static int[] dc = new int[]{0,0,-1,1};
