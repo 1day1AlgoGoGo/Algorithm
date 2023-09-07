@@ -16,7 +16,7 @@ import java.util.*;
 
  */
 
-public class 후보 {
+public class 후보_추천하기 {
 
     static class Student implements Comparable<Student> {
         // 각각 후보의 추천수, 숫자, 등록 시간
