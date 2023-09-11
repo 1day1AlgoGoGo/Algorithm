@@ -7,6 +7,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+/*
+문제에서 주어진 설명 그대로를 구현하려고 했다.
+기차들과 기차안에 있는 좌석들을 ArrayList<ArrayList<Boolean>> 으로 구현했다.
+승차/하차 두가지 상태만 존재하기에 boolean으로 하였다.
+앞으로 한칸씩 미는거, 뒤로 한칸씩 미는거를 쉽게 구현하는 방법을 고민하였고, 가장 편할거같다고 떠오른 방법이 ArrayList에 22개를 추가해놓고 add, remove를 하는 방법이었다. (2개의 여유분을 두기)
+
+그리고 기차가 은하수를 건넜는지 안건넜는지 판단하기위해, 이를 관리하는 ArrayList<ArrayList<Boolean>>를 하나 더 추가했다.
+isCrossedTrain() 함수를 통해 검증하려고 했다.
+
+처음에는 LinkedList로 구현했는데 시간초과가 나서 ArrayList로 바꾸었다.
+근데 IndexOutOfBounds에러가 자꾸 난다... 이유를 모르겠다... 알려주세요...
+*/
 public class 기차가어둠을헤치고은하수를_v1 {
     static BufferedReader br;
     static StringTokenizer st;
@@ -17,8 +29,10 @@ public class 기차가어둠을헤치고은하수를_v1 {
     public static void main(String[] args) throws IOException {
         init();
 
+        // 명령을 수행하는 함수
         commandToTrain();
 
+        // 은하수를 건너는 함수
         crossTheMilkyWay();
 
         System.out.println(numberOfTrainToCrossingTheMilkyWay);
@@ -45,10 +59,9 @@ public class 기차가어둠을헤치고은하수를_v1 {
             st = new StringTokenizer(br.readLine());
 
             int command = Integer.parseInt(st.nextToken());
-            System.out.println(command);
             int trainNumber = Integer.parseInt(st.nextToken());
 
-            // 특정 열차를 가져오기
+            // 해당 열차를 가져오기
             ArrayList<Boolean> train = trains.get(trainNumber);
 
             if (command == 1) {
@@ -64,14 +77,20 @@ public class 기차가어둠을헤치고은하수를_v1 {
             } else if (command == 3) {
                 //한칸씩 뒤로가기
 
+                // 맨뒤에 있는 사람을 먼저 내리게 만들기
                 train.set(20, false);
+                // 맨앞에 좌석 추가하기 (자동으로 한칸씩 뒤로감)
                 train.add(0,false);
+                // 좌서관리를 위해 마지막 좌석 제거
                 train.remove(train.size() - 1);
             } else if (command == 4) {
                 //한칸씩 앞으로 가기
 
+                // 맨 앞 사람 내리기
                 train.set(1, false);
+                // 맨 뒤에 좌석 추가
                 train.add(false);
+                // 맨 앞 좌석 제거(자리 관리를 위해)
                 train.remove(0);
             }
         }
@@ -90,6 +109,7 @@ public class 기차가어둠을헤치고은하수를_v1 {
         }
     }
 
+    //이미 건넌 기차인지 확인하는 함수
     private static boolean isCrossedTrain(ArrayList<Boolean> train) {
         for (int i = 0; i < crossedTrains.size(); i++) {
             ArrayList<Boolean> crossedTrain = crossedTrains.get(i);
